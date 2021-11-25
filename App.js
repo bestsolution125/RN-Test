@@ -1,21 +1,27 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Post from './src/allPostspage';
-import AllPosts from './src/post';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Provider} from 'react-redux';
+import {store} from './src/store';
+import FeedView from './src/pages/FeedView';
+import {NativeBaseProvider} from 'native-base';
+import PostDetailView from './src/pages/PostDetailView';
+
 const Stack = createNativeStackNavigator();
-class App extends React.Component {
-  render() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="All Post" component={AllPosts} />
-          <Stack.Screen name="Post Detail" component={Post} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
 
+const App = () => {
+  return (
+    <Provider store={store}>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Feed" component={FeedView} />
+            <Stack.Screen name="Post detail" component={PostDetailView} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </Provider>
+  );
+};
 
-  }
-}
-export default App
+export default App;
